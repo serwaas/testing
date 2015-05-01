@@ -38,7 +38,7 @@ namespace Kontur.Courses.Testing
             stat.AddWord("hello");
             stat.AddWord("ololo");
             stat.AddWord("lol");
-            
+
             stat.AddWord("kontur");
             stat.AddWord("Kontur");
             stat.AddWord("kontur");
@@ -50,10 +50,10 @@ namespace Kontur.Courses.Testing
         [Test]
         public void words_with_len_11()
         {
-            
-                stat.AddWord("AaaaaaaaaaB");
-                stat.AddWord("aaaaaaaaaaC");
-            
+
+            stat.AddWord("AaaaaaaaaaB");
+            stat.AddWord("aaaaaaaaaaC");
+
             CollectionAssert.AreEqual(new[] { Tuple.Create(2, "aaaaaaaaaa") }, stat.GetStatistics());
         }
 
@@ -66,14 +66,28 @@ namespace Kontur.Courses.Testing
 
             CollectionAssert.AreEqual(new[] { Tuple.Create(1, "hell") }, stat.GetStatistics());
         }
-        [Test,Timeout(2000)]
+        [Test]
+        public void add_word_in_other_stat()
+        {
+            var stat1 = createStat();
+            stat1.AddWord("lol");
+            stat.AddWord("ololo");
+
+
+
+            CollectionAssert.AreEqual(new[] { Tuple.Create(1, "ololo") }, stat.GetStatistics());
+        }
+
+
+
+        [Test, Timeout(2000)]
         public void count_of_words_equal_20000()
         {
             ArrayList res = new ArrayList();
             for (int i = 0; i < 20000; i++)
             {
                 stat.AddWord(i.ToString());
-                // res[i] = Tuple.Create(1, (""+i));
+
                 res.Add(Tuple.Create(1, i.ToString()));
             }
             res.Sort();
@@ -92,6 +106,6 @@ namespace Kontur.Courses.Testing
 
             CollectionAssert.AreEqual(new[] { Tuple.Create(1, "hell") }, stat.GetStatistics());
         }
-        
+
     }
 }
